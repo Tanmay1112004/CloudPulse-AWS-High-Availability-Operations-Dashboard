@@ -120,6 +120,10 @@ To run the deployed smoke check:
 ```bash
 ./scripts/test.sh
 ```
+## Screenshots 
+
+![app]()
+![app]()
 
 ## Resume-ready description
 
