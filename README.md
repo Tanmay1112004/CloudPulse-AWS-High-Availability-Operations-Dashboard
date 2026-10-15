@@ -122,8 +122,9 @@ To run the deployed smoke check:
 ```
 ## Screenshots 
 
-![app]()
-![app]()
+![app](https://github.com/Tanmay1112004/CloudPulse-AWS-High-Availability-Operations-Dashboard/blob/main/screenshots/Screenshot%202026-10-15%20173735.png)
+
+![app](https://github.com/Tanmay1112004/CloudPulse-AWS-High-Availability-Operations-Dashboard/blob/main/screenshots/Screenshot%202026-10-15%20173807.png)
 
 ## Resume-ready description
 
