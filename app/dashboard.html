@@ -1,0 +1,59 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CloudPulse AWS service health and infrastructure operations dashboard">
+  <meta name="theme-color" content="#0a0f1b">
+  <title>CloudPulse | AWS Operations</title>
+  <link rel="stylesheet" href="/dashboard.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="CloudPulse home"><span class="brand-mark">C</span><span>CloudPulse<small>OPERATIONS CENTER</small></span></a>
+      <div class="nav-label">WORKSPACE</div>
+      <a class="nav-item active" href="#overview" aria-current="page"><span aria-hidden="true">&#9638;</span> Overview</a>
+      <a class="nav-item" href="#compute-health"><span aria-hidden="true">&#9673;</span> Compute health</a>
+      <a class="nav-item" href="#request-analytics"><span aria-hidden="true">&#8645;</span> Request analytics</a>
+      <div class="sidebar-bottom"><span class="pulse"></span> Live environment<small>Educational AWS capstone</small></div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">AWS / APPLICATION PLATFORM</div><h1>Operations overview</h1><p class="subheading">A real-time view of your highly available web service.</p></div>
+        <div class="toolbar-actions"><button id="refreshButton" class="theme-button" type="button" aria-label="Refresh dashboard telemetry">&#8635; <span>Refresh now</span></button><button id="themeToggle" class="theme-button" aria-label="Toggle theme" aria-pressed="false">&#9680; <span>Appearance</span></button></div>
+      </header>
+      <section class="hero" id="overview" aria-labelledby="serviceTitle">
+        <div><div class="hero-kicker"><span class="live-dot"></span> APPLICATION STATUS</div><h2 id="serviceTitle">Service is up and running.</h2><p>Requests are routed through the Application Load Balancer to healthy compute capacity.</p></div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="cloud-symbol">&#9729;</div><div class="tiny-node node-a"></div><div class="tiny-node node-b"></div><div class="tiny-node node-c"></div></div>
+      </section>
+      <section class="metrics" aria-label="Service metrics">
+        <article class="metric-card" id="request-analytics" tabindex="-1"><div class="metric-head"><span>GLOBAL PAGE REQUESTS</span><span class="metric-icon purple">&#8599;</span></div><div id="globalVisits" class="metric-value">--</div><div id="counterNote" class="metric-foot">Persistent DynamoDB counter</div></article>
+        <article class="metric-card"><div class="metric-head"><span>INSTANCE UPTIME</span><span class="metric-icon blue">&#9201;</span></div><div id="uptime" class="metric-value">--</div><div class="metric-foot">Current responding instance</div></article>
+        <article class="metric-card"><div class="metric-head"><span>INSTANCE REQUESTS</span><span class="metric-icon orange">&#8645;</span></div><div id="instanceRequests" class="metric-value">--</div><div class="metric-foot">Resets if instance is replaced</div></article>
+        <article class="metric-card"><div class="metric-head"><span>APPLICATION HEALTH</span><span class="metric-icon green">&#10003;</span></div><div class="metric-value health-value"><span class="health-dot"></span><span id="healthLabel" aria-live="polite">Checking</span></div><div id="lastUpdated" class="metric-foot">Waiting for telemetry</div></article>
+      </section>
+      <section class="content-grid" aria-label="Infrastructure details">
+        <article class="panel instance-panel" id="compute-health" tabindex="-1">
+          <div class="panel-heading"><div><h3>Responding instance</h3><p>Telemetry reported by the application</p></div><span class="tag" id="buildTag">BUILD --</span></div>
+          <div class="instance-id"><div class="server-icon" aria-hidden="true">&#9635;</div><div><span class="muted-label">INSTANCE ID</span><strong id="instanceId">Loading...</strong></div><span class="status-pill" id="instanceStatus"><i></i> Healthy</span></div>
+          <div class="detail-grid">
+            <div class="detail"><span>Availability Zone</span><strong id="az">--</strong></div><div class="detail"><span>AWS Region</span><strong id="region">--</strong></div>
+            <div class="detail"><span>Hostname</span><strong id="hostname">--</strong></div><div class="detail"><span>Health endpoint</span><strong class="good">/health/ready</strong></div>
+          </div>
+          <div class="note"><span aria-hidden="true">&#9432;</span><span>ALB routing is distributed, not alternating. Consecutive refreshes can reach the same instance.</span></div>
+        </article>
+        <article class="panel architecture-panel">
+          <div class="panel-heading"><div><h3>Request path</h3><p>High-availability architecture</p></div><span class="tag tag-blue">MULTI-AZ</span></div>
+          <div class="path-flow"><div class="path-node"><span class="path-icon">&#9673;</span><strong>Browser</strong><small>HTTP :80</small></div><div class="path-line"></div><div class="path-node highlighted"><span class="path-icon">&#8644;</span><strong>ALB</strong><small>Health checks</small></div><div class="path-line"></div><div class="path-node"><span class="path-icon">&#9635;</span><strong>EC2 / ASG</strong><small>Two AZs</small></div></div>
+          <div class="storage-flow"><div><span class="storage-icon">&#955;</span><div><strong>Lambda</strong><small>Counter handler</small></div></div><span class="storage-arrow">&#8594;</span><div><span class="storage-icon db">&#9635;</span><div><strong>DynamoDB</strong><small>Shared total</small></div></div></div>
+          <div class="architecture-caption"><span class="live-dot"></span> Infrastructure managed with Terraform</div>
+        </article>
+      </section>
+      <footer><span>CloudPulse <b>&middot;</b> AWS HA Capstone</span><span id="footerStatus" aria-live="polite">Polling status every 5 seconds</span><span>Build <b id="footerBuild">--</b></span></footer>
+    </main>
+  </div>
+  <script>window.CLOUDPULSE_INITIAL = __INITIAL_DATA__;</script>
+  <script src="/dashboard.js" defer></script>
+</body>
+</html>
